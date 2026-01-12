@@ -1,8 +1,41 @@
 import java.util.*;
+import java.util.Map.*;
 public class HashingEx {
     public static void main(String ... args){
-        int[] arr = {1, 2, 2, 1, 3,534};
-        System.out.println(countFrequenciesAlternate(arr));
+        int[] arr = {2, 4, 3, 2, 5, 4};
+//        System.out.println(countFrequenciesAlternate(arr));
+        System.out.println(mostFrequentElement(arr));
+        System.out.println(mostFrequentElementAlternate(arr));
+
+    }
+    public static int mostFrequentElementAlternate(int[] nums){
+        Map<Integer,Integer> frequencies = new HashMap<>();
+        for(int i:nums){
+            frequencies.put(i,frequencies.getOrDefault(i,0)+1);
+        }
+        int maxKey = Integer.MIN_VALUE;
+        int maxValue = Integer.MIN_VALUE;
+        for(Entry<Integer,Integer> entry: frequencies.entrySet()){
+            if(maxValue<entry.getValue()){
+                maxKey = entry.getKey();
+                maxValue=entry.getValue();
+            }
+        }
+        return  maxKey;
+    }
+    public static int mostFrequentElement(int[] nums) {
+        int[] arr = new int[10];
+        for(int i:nums){
+            arr[i]++;
+        }
+        int maxIndex = 0;
+        for(int i=1;i<arr.length;i++){
+            if(arr[maxIndex]<arr[i])
+                maxIndex=i;
+
+        }
+        return maxIndex;
+
     }
     public static List<List<Integer>> countFrequenciesAlternate(int[] arr){
         Map<Integer,Integer> frequencies = new HashMap<>();
