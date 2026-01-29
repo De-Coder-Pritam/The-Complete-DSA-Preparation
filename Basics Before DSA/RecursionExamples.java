@@ -31,13 +31,15 @@ public class RecursionExamples {
 //        System.out.println("--------------***************--------------");
 //        System.out.println("fibonacci of 3rd term: "+fibNumber(3));
 //        System.out.println("--------------***************--------------");
-//        System.out.println("fibonacci of 4th term: "+fibNumber(4));
-        System.out.println("hannah is palindrome : "+palindromeCheck("hannah"));
-        System.out.println("--------------***************--------------");
-        System.out.println("pritam is palindrome : "+palindromeCheck("pritam"));
-        System.out.println("--------------***************--------------");
-        System.out.println("aabbaaa is palindrome : "+palindromeCheck("aabbaaa"));
-        System.out.println("--------------***************--------------");
+////        System.out.println("fibonacci of 4th term: "+fibNumber(4));
+//        System.out.println("hannah is palindrome : "+palindromeCheck("hannah"));
+//        System.out.println("--------------***************--------------");
+//        System.out.println("pritam is palindrome : "+palindromeCheck("pritam"));
+//        System.out.println("--------------***************--------------");
+//        System.out.println("aabbaaa is palindrome : "+palindromeCheck("aabbaaa"));
+//        System.out.println("--------------***************--------------");
+        printN(5);
+        System.out.println(numbersSum(5));
     }
     public static boolean palindromeCheck(String str){
         if(str.length()<=1){
@@ -120,6 +122,25 @@ public class RecursionExamples {
         }
         printNumbers(num-1);
         System.out.println(num);
+    }
+    public static void printName(int n){
+        if(n<1)
+            return;
+        System.out.println("Pritam");
+        printName(n-1);
+    }
+    public static void printN(int n){
+        if(n<1)
+            return;
+        System.out.println(n);
+        printN(n-1);
+
+    }
+    public static int numbersSum(int n){
+        if(n==1){
+            return 1;
+        }
+        return n + numbersSum(n-1);
     }
     public static void printNumbersReverse(int num){
         if(num<=1){
