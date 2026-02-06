@@ -7,11 +7,11 @@ public class ArrayRotation {
         System.out.println();
     }
     public static void main(String... args){
-        int arr[] = {1, 2, 3, 4, 5,6};
-        int k=3;
+        int arr[] = {1, 2, 3, 4, 5,6,7};
+        int k=2;
         System.out.printf("Before Rotation (%d Positions): ",k);
         printArray(arr, arr.length);
-        leftRotateByKBrute(arr,3);
+        rightRotateByKOptimal(arr,k);
         System.out.printf("After Rotation (%d Positions): ",k);
         printArray(arr, arr.length);
 //        ------Rotation By One Problem---------
@@ -25,8 +25,36 @@ public class ArrayRotation {
 
 
     }
+    public static void reverse(int[] arr, int start, int end){
+        while(start<end){
+            int temp=arr[start];
+            arr[start]=arr[end];
+            arr[end]=temp;
+            start++;
+            end--;
+        }
+    }
+    public static void rightRotateByKOptimal(int[] arr, int k){
+        reverse(arr,0,arr.length-1);
+        reverse(arr,0,k-1);
+        reverse(arr,k,arr.length-1);
+    }
+    public static void leftRotateByKOptimal(int[] arr, int k){
+        reverse(arr, 0, k-1);
+        reverse(arr,k,arr.length-1);
+        reverse(arr,0,arr.length-1);
+    }
     public static void rightRotateByKBrute(int[] arr, int k){
-        
+        int[] temp = new int[k];
+        for(int i=arr.length-k,j=0;i<arr.length;i++,j++){
+            temp[j]=arr[i];
+        }
+        for(int i=arr.length-k-1;i>=0;i--){
+            arr[i+k]=arr[i];
+        }
+        for(int i=0;i<k;i++){
+            arr[i]=temp[i];
+        }
     }
     public static void leftRotateByKBrute(int[] arr, int k){
         int[] temp = new int[k];
@@ -36,7 +64,7 @@ public class ArrayRotation {
         for(int i=k;i<arr.length;i++)
             arr[i-k]=arr[i];
         for(int i=0;i<temp.length;i++)
-            arr[i+k]=temp[i];
+            arr[arr.length-k+i]=temp[i];
     }
     public static void leftRotateByOneBrute(int[] arr){
         int [] temp = new int[arr.length];
