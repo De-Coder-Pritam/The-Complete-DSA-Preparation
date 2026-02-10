@@ -1,5 +1,5 @@
 import java.util.*;
-public class SortingArrayEx {
+public class SortingArrayAlgorithms {
     public static void main(String... args){
 //        System.out.println("Hello World!");
         int[] arr = {7,6,5,4,3,2,1};
