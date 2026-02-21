@@ -16,7 +16,7 @@ public class MaxSubArrSumKadaneAlgorithm {
 //    Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
     public static void main(String[] args){
         int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-        System.out.println(maxSubArrayOptimalFollowUp(nums));
+        System.out.println(maxSubArrayOptimal(nums));
     }
     public static int maxSubArrayOptimalFollowUp(int[] nums){
         int sum = nums[0];
@@ -43,15 +43,15 @@ public class MaxSubArrSumKadaneAlgorithm {
         return max;
     }
     public static int maxSubArrayOptimal(int[] nums){
-        int sum = nums[0];
-        int max=nums[0];
-        for(int i=1;i<nums.length;i++){
-
-            if(sum <= 0){
-                sum=0;
-            }sum+=nums[i];
+        int sum = 0;
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
             if(max<sum){
                 max=sum;
+            }
+            if(sum <= 0){
+                sum=0;
             }
         }
         return max;
