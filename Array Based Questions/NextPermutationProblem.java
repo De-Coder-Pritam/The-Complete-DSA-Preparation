@@ -19,6 +19,43 @@ public class NextPermutationProblem {
 //    Explanation:
 //    [3,2,1] is the last permutation. So we return the first: [1,2,3].
     public static void main(String[] args){
-        System.out.println("Hello World!");
+        int[] arr = {1,2,3};
+        nextPermutation(arr);
+        for(int i: arr){
+            System.out.print(i+" ");
+        }
+
+    }
+    public static void nextPermutation(int[] arr){
+        int index=-1;
+        for(int i=arr.length-2;i>=0;i--){
+            if(arr[i]<arr[i+1]){
+                index=i;
+                break;
+            }
+        }
+        if(index == -1){
+            reverse(arr,0, arr.length-1);
+            return;
+        }
+        for(int i=arr.length-1;i>index;i--){
+            if(arr[i]>arr[index]){
+                swap(arr,i,index);
+                break;
+            }
+        }
+        reverse(arr,index+1,arr.length-1);
+    }
+    public static void reverse(int[]arr, int start, int end){
+        while(start<end){
+            int temp=arr[start];
+            arr[start]=arr[end];
+            arr[end]=temp;start++;end--;
+        }
+    }
+    public static void swap(int []arr, int i, int j){
+        int temp = arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
     }
 }
