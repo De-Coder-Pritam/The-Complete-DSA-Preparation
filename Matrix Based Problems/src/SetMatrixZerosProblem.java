@@ -17,14 +17,26 @@ public class SetMatrixZerosProblem {
     Column 0 and column 3 → all elements become 0
      */
     public static void main(String[] args){
-        int[][] matrix = {
-                {0,1,2,0},
-                {3,4,5,2},
-                {1,3,1,5}
-        };
-        MatrixOperations.printMatrix(matrix);
-        setZeroesBrute(matrix);
-        MatrixOperations.printMatrix(matrix);
+        String columnTitle = "AA";
+        int n=columnTitle.length();
+        int total = 0;
+        for(int i=0;i<n;i++){
+            char ch = columnTitle.charAt(i);
+            int val = (ch-65+1) ;
+
+            total = total * 26 + val;
+
+
+        }
+        System.out.println(total);
+//        int[][] matrix = {
+//                {0,1,2,0},
+//                {3,4,5,2},
+//                {1,3,1,5}
+//        };
+//        MatrixOperations.printMatrix(matrix);
+//        setZeroesBrute(matrix);
+//        MatrixOperations.printMatrix(matrix);
     }
 
     public static void setZeroesBrute(int[][] matrix) {
