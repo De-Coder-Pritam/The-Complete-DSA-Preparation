@@ -20,4 +20,55 @@ public class FindTheSmallestDivisorProblem {
     Explanation: If we choose 1, we get 17 as the sum. If we choose 2,
     we get 9 (4+2+1+2) <= 10 as the answer. So, 2 is the answer.
      */
+    public static void main(String[] args){
+        int []nums1 = {1, 2, 3, 4, 5};
+        int[] nums2 = {8,4,2,3};
+//        System.out.println(findSmallestDivisorBrute(nums1,8));
+//        System.out.println(findSmallestDivisorBrute(nums2,10));
+        System.out.println(findSmallestDivisorOptimal(nums1,8));
+        System.out.println(findSmallestDivisorOptimal(nums2,10));
+
+    }
+    public static int findSmallestDivisorOptimal(int[]nums, int threshold){
+        int n=nums.length;
+        if(n>threshold) return -1;
+        int max = nums[0];
+        for(int i=1;i<n;i++){
+            if(nums[i]>max) max = nums[i];
+        }
+        int low=1,high=max;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            int digSum = 0;
+            for(int j=0;j<n;j++){
+                int div = (int)Math.ceil((double)nums[j]/mid);
+                digSum += div;
+            }
+            if(digSum<=threshold){
+                high = mid-1;
+            }else{
+                low = mid+1;
+            }
+
+        }
+        return low;
+    }
+    public static int findSmallestDivisorBrute(int[] nums, int threshold){
+        int n=nums.length;
+        if(n>threshold) return -1;
+        int max = nums[0];
+        for(int i=1;i<n;i++){
+            if(nums[i]>max) max = nums[i];
+        }
+        for(int i=1;i<max;i++){
+            int digSum = 0;
+            for(int j=0;j<n;j++){
+                int div = (int)Math.ceil((double)nums[j]/i);
+                digSum += div;
+            }
+
+            if(digSum <= threshold) return i;
+        }
+        return -1;
+    }
 }
