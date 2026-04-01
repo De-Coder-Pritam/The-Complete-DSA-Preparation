@@ -18,8 +18,57 @@ public class BookAllocationProblem {
     Explanation: The allocation of books will be 25, 46 | 28 | 49 | 24.
      */
     public static void main(String[] args){
-        int []nums1 = {};
-        int[] nums2 = {};
+        int []nums1 = {12, 34, 67, 90};
+        int[] nums2 = {25, 46, 28, 49, 24};
+        System.out.println(findPagesBrute(nums1,2));
+        System.out.println(findPagesBrute(nums2,4));
+        System.out.println(findPagesOptimal(nums1,2));
+        System.out.println(findPagesOptimal(nums2,4));
 
+    }
+    public static int findPagesOptimal(int[]nums, int std){
+        int low=0,high=0;
+        if(std>nums.length) return -1;
+        for(int num:nums){
+            low = Math.max(num,low);
+            high +=num;
+        }
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(splitBooks(nums,mid) > std){
+
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+    public static int splitBooks(int[]nums, int pages){
+        int std=1,last=nums[0];
+        for(int i=1;i<nums.length;i++){
+            if((last+nums[i])<=pages){
+                last +=nums[i];
+            }else{
+                std++;
+                last=nums[i];
+            }
+        }
+        return std;
+    }
+    public static int findPagesBrute(int[]nums, int m){
+        int n=nums.length;
+        if(m>n) return -1;
+        int low=0,high=0;
+        for(int num:nums){
+            low = Math.max(num,low);
+            high +=num;
+        }
+        for(int i=low;i<=high;i++){
+            if(splitBooks(nums,i) == m){
+                return i;
+            }
+        }
+        return -1;
     }
 }
