@@ -27,4 +27,7 @@ public class MinMaxDistanceToGasStationProblem {
     Hence, the value of dist is 1.
     It can be shown that there is no possible way to add 1 gas station in such a way that the value of dist is lower than this.
      */
+    public static void main(String[] args){
+
+    }
 }
