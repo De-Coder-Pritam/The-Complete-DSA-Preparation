@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 public class MinMaxDistanceToGasStationProblem {
     /*
     Given a sorted array arr of size n, containing integer positions of n gas stations on the X-axis,
@@ -28,6 +30,95 @@ public class MinMaxDistanceToGasStationProblem {
     It can be shown that there is no possible way to add 1 gas station in such a way that the value of dist is lower than this.
      */
     public static void main(String[] args){
+        int[] arr = {1, 2, 3, 4, 5, 6 ,7, 8, 9, 10};
+        int k = 10;
+        System.out.println(minimizeMaxDistanceOptimal(arr,k));
+        int[] arr2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int k2 = 1;
+        System.out.println(minimizeMaxDistanceOptimal(arr2,k2));
 
+    }
+    public static int numberOfGasStationsRequired(double dist,int[] arr){
+        int n=arr.length;
+        int count=0;
+        for(int i=1;i<n;i++){
+            int numberInBetween = (int)((arr[i]-arr[i-1])/dist);
+            if((arr[i]-arr[i-1]) == (dist * numberInBetween)){
+                numberInBetween--;
+            }
+            count += numberInBetween;
+        }
+        return count;
+    }
+    public static double minimizeMaxDistanceOptimal(int[] arr, int k){
+        int n = arr.length;
+        double low = 0,high=0;
+        for(int i=0;i<n-1;i++){
+            high = Math.max(high,arr[i+1]-arr[i]);
+        }
+        double diff = 1e-6;
+        while(high-low > diff){
+            double mid = (low+high)/2.0;
+            int count = numberOfGasStationsRequired(mid, arr);
+            if(count > k){
+                low = mid;
+            }else{
+                high = mid;
+            }
+        }
+        return high;
+    }
+    public static double minimizeMaxDistanceBrute(int[] arr, int k){
+        int n = arr.length;
+        int[] howMany = new int[n-1];
+        for(int gasStations=1;gasStations<=k; gasStations++){
+            double maxSection=-1;
+            int maxInd =-1;
+            for(int i=0;i<n-1;i++) {
+                double dif = arr[i + 1] - arr[i];
+                double sectionLength = dif / (howMany[i] + 1.0);
+                if (sectionLength > maxSection) {
+                    maxSection = sectionLength;
+                    maxInd = i;
+                }
+            }
+            howMany[maxInd]++;
+            }
+        double maxAns = -1;
+        for(int i=0;i<n-1;i++){
+            double diff = arr[i+1]-arr[i];
+            double sectionLength = diff/(howMany[i]+1.0);
+            maxAns = Math.max(maxAns,sectionLength);
+        }
+        return maxAns;
+    }
+
+    public static double minimizeMaxDistanceBetter(int[] arr, int k){
+        int n=arr.length;
+        int[] howMany = new int[n-1];
+        PriorityQueue<Pair> pq = new PriorityQueue<>(
+                (a,b) -> Double.compare(b.distance,a.distance)
+        );
+        for(int i=0;i<n-1;i++){
+            pq.add(new Pair(arr[i+1]-arr[i], i));
+        }
+        for(int gas=1;gas<=k;gas++){
+            Pair top = pq.poll();
+            int idx = top.index;
+            howMany[idx]++;
+            double totalDist = top.distance;
+            double newDist = totalDist/(howMany[idx]+1);
+            pq.add(new Pair(newDist,idx));
+        }
+        return pq.peek().distance;
+    }
+
+}
+class Pair{
+    double distance;
+    int index;
+    Pair(double dist, int ind){
+        distance = dist;
+        index = ind;
     }
 }
