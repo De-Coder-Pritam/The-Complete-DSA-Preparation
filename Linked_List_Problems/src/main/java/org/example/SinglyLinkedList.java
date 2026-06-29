@@ -14,26 +14,32 @@ class ListNode{
 public class SinglyLinkedList {
     public static void main(String[]args){
         ListNode head = null;
-        head = insertAtEnd(head,19);
-        head = insertAtEnd(head,38);
-        head=insertAtEnd(head,57);
-        head=insertAtEnd(head,76);
-        head = insertAtFront(head,6);
-        head = insertAtPosBefore(head,23,3);
-        head = insertAtPosAfter(head,27,3);
-        display(head);
         head = convertArrayToLL(new int[]{10,20,30,40,50,60});
         display(head);
-        ListNode node = searchByValue(head, 30);
-        System.out.println(node.data);
-        ListNode nd = searchByNode(head,node);
-        System.out.println(nd.data);
-        System.out.println(lengthOfList(head));
-        head = deleteHead(head);
-        display(head);
-        System.out.println(deleteTail(head));
-        System.out.println(deleteByPos(head,3));
-        display(head);
+        if(deleteByValue(head,20)){
+            display(head);
+        }else{
+            System.out.println("Value doesn't exist.");
+        }
+//        head = insertAtEnd(head,19);
+//        head = insertAtEnd(head,38);
+//        head=insertAtEnd(head,57);
+//        head=insertAtEnd(head,76);
+//        head = insertAtFront(head,6);
+//        head = insertAtPosBefore(head,23,3);
+//        head = insertAtPosAfter(head,27,3);
+//        display(head);
+
+//        ListNode node = searchByValue(head, 30);
+//        System.out.println(node.data);
+//        ListNode nd = searchByNode(head,node);
+//        System.out.println(nd.data);
+//        System.out.println(lengthOfList(head));
+//        head = deleteHead(head);
+//        display(head);
+//        System.out.println(deleteTail(head));
+//        System.out.println(deleteByPos(head,3));
+//        display(head);
 
     }
     public static int lengthOfList(ListNode head){
@@ -61,8 +67,21 @@ public class SinglyLinkedList {
         }
         return null;
     }
-    public static ListNode deleteByValue(ListNode head){
-
+    public static boolean deleteByValue(ListNode head, int d){
+        if(head == null) {
+            return false;
+        }
+        ListNode prev=null;
+        ListNode curr = head;
+        while(curr != null){
+            if(curr.data == d){
+                prev.next = curr.next;
+                return true;
+            }
+            prev=curr;
+            curr=curr.next;
+        }
+        return false;
     }
     public static ListNode convertArrayToLL(int [] arr){
         ListNode head = null;
